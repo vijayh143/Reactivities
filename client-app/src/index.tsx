@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'react-calendar/dist/Calendar.css'
 import 'react-toastify/dist/ReactToastify.min.css'
+import 'react-datepicker/dist/react-datepicker.module.css'
 import './app/layout/styles.css';
 import reportWebVitals from './reportWebVitals';
 import { StoreContext, store } from './app/stores/store';
