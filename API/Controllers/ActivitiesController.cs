@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Application.Activities;
 using Application;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -16,7 +17,7 @@ namespace API.Controllers
         {
             return HandleResult(await Mediator.Send(new List.Query()));
         }
-
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivity(Guid id){
             //return await _mediator.Activities.FindAsync(id);
