@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    
+   
     [ApiController]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
@@ -50,11 +50,18 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegistrerDto registerDto) 
         {
-            if(await _userManager.Users.AnyAsync(x => x.UserName == registerDto.Username)) 
-                return BadRequest("UserName is already taken.");
+            if(await _userManager.Users.AnyAsync(x => x.UserName == registerDto.Username))
+            { 
+                ModelState.AddModelError("username","UserName is already taken.");
+                return ValidationProblem();
+            }
             
              if(await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email)) 
-                return BadRequest("Email is already taken.");
+             {
+                ModelState.AddModelError("email","Email is already taken.");
+                return ValidationProblem();
+             }
+            
             
             var user = new AppUser
             {
