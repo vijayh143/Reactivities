@@ -3,7 +3,7 @@ import { Button,Header,Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Activity } from "../../../app/models/activity";
+import {  ActivityFormValues } from "../../../app/models/activity";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -18,22 +18,12 @@ import {v4 as uuid } from "uuid";
 export default observer(function ActivityForm() {
 
     const {activityStore} = useStore();
-    const {loading,createActivity,updateActivity,loadActivity,loadingInitial} = activityStore;
+    const {createActivity,updateActivity,loadActivity,loadingInitial} = activityStore;
     
     const {id} =useParams();
 const navigate = useNavigate();
 
-    const [activity, setActivity] = useState<Activity>(
-        {
-            id:'',
-            title:'',
-            description:'',
-            category: '',
-            date:null,
-            city:'',
-            venue:''
-        }
-    );
+    const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
     useEffect( () => {
         if(id) loadActivity(id).then(activity => setActivity(activity!))
@@ -51,7 +41,7 @@ const navigate = useNavigate();
 
     
   
-    function handleFormSubmit(activity: Activity){
+    function handleFormSubmit(activity: ActivityFormValues){
         if(!activity.id)
         {
             activity.id=uuid();
@@ -91,7 +81,7 @@ const navigate = useNavigate();
                     <MyTextInput placeholder='Venue'  name='venue' />
                     <Button 
                         disabled={isSubmitting || !dirty || !isValid}
-                        loading={loading} 
+                        loading={isSubmitting} 
                         floated='right' positive content='Submit' type='submit'/>
                     <Button as={Link} to='/activities' floated='right' content='Cancel' type='button'/>
                 </Form>
