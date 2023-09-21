@@ -23,7 +23,7 @@ namespace Application.Activities
 
        public Boolean IsCancelled { get; set; }
 
-       public List<Profile> Attendees { get; set; }
+       public List<AttendeeDto> Attendees { get; set; }
 
        
     }
