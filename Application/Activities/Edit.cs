@@ -21,6 +21,8 @@ namespace Application.Activities
             {
                 RuleFor(x => x.Activity).SetValidator(new ActivityValidator());
             }
+
+            
         }
 
         public class Handler : IRequestHandler<Command,Result<Unit>>
