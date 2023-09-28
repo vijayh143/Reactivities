@@ -1,5 +1,6 @@
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +26,12 @@ app.UseMiddleware<ExceptionMidlleware>();
 if (builder.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+    app.UseSwaggerUI(
+        c => {
+            c.SwaggerEndpoint("/swagger/v2/swagger.json", "API v2");
+            c.RoutePrefix="";
+        
+        });
 }
 
 app.UseCors("CorsPolicy");
@@ -35,6 +41,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("/chat");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
