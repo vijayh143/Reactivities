@@ -16,6 +16,12 @@ namespace Application.Profiles
 
         public string  Image { get; set; }
 
+        public Boolean Following { get; set; }
+
+        public int FollowerCount { get; set; }
+
+        public int FollowingCount { get; set; }
+
         public ICollection<Photo> Photos {get; set; }
         
     }

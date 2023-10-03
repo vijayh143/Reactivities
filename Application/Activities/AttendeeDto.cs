@@ -14,5 +14,13 @@ namespace Application.Activities
         public string  Bio { get; set; }
 
         public string  Image { get; set; }
+
+        
+        public Boolean Following { get; set; }
+
+        public int FollowerCount { get; set; }
+
+        public int FollowingCount { get; set; }
+
     }
 }
